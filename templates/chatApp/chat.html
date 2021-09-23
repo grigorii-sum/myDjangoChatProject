@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+    		<div class="user_card">
+				<div class="d-flex justify-content-center">
+					<h3 id="form-title">ЧАТ</h3>
+				</div><br>
+
+                <div class="justify-content-center form_container">
+                    {% if messages %}
+                        {% for item in messages %}
+                            <div class="alert alert-success" role="alert">
+                                <h4 class="alert-heading">{{ item.author_id }}</h4>
+                                <p>{{ item.text }}</p>
+                                <hr>
+                                <p class="mb-0">posted  {{ item.created_at|timesince }} ago</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Пока чат пуст, Вы будете первым!</p>
+                    {% endif %}
+                </div><br>
+
+				<div class="d-flex justify-content-center form_container">
+					<form method="POST" action="">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-sms"></i></span>
+							</div>
+							<input type="text" name="text" placeholder="Введите сообщение..." class="form-control">
+						</div>
+
+						<div class="d-flex justify-content-center mt-3 login_container">
+							<button type="submit" class="btn btn-success">Отправить сообщение</button>
+						</div><br><br><br>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
